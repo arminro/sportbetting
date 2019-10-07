@@ -1,4 +1,4 @@
-package com.epam.training.sportsbetting.domain;
+package com.sportsbetting.domain;
 
 import java.util.List;
 
@@ -10,6 +10,21 @@ public class Bet {
     private List<Outcome> outcomes; // same number as nuzmber of possible outcomes
     private BetType type;
 
+    public List<Outcome> getOutcomes() {
+        return outcomes;
+    }
+
+    // this implementation means that we can never reassign outcomes only add to it
+    // but this is a problem only if we reuse domain object, which is seldom done (new instance instead, setting old to null)
+    // (also it looks kinda cool to have the ability to daisy-chain collection elements)
+    public void setOutcomes(List<Outcome> outcomes) {
+        if (this.outcomes == null){
+            this.outcomes = outcomes;
+        }
+        else {
+            this.outcomes.addAll(outcomes);
+        }
+    }
 
     public String getDescription() {
         return description;

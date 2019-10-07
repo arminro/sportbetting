@@ -1,6 +1,6 @@
-package com.epam.training.sportsbetting.domain;
+package com.sportsbetting.domain;
 
-public abstract class User {
+public class User {
     protected String email;
     protected String password;
 

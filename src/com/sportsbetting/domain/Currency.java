@@ -1,4 +1,4 @@
-package com.epam.training.sportsbetting.domain;
+package com.sportsbetting.domain;
 
 public enum Currency{
     HUF,

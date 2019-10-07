@@ -1,14 +1,28 @@
-package com.epam.training.sportsbetting.domain;
+package com.sportsbetting.domain;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
-public abstract class SportEvent {
+public class SportEvent {
     protected String title;
     protected LocalDateTime startDate;
     protected LocalDateTime endDate;
     protected Result result;
     protected List<Bet> bets;
+
+    public List<Bet> getBets() {
+        return bets;
+    }
+
+    public void setBets(List<Bet> bets) {
+        if(this.bets == null){
+            this.bets = bets;
+        }
+        else{
+            this.bets.addAll(bets);
+        }
+    }
 
     public String getTitle() {
         return title;
