@@ -33,7 +33,7 @@ public class ViewImpl implements View {
         while (amount.equals(BigDecimal.ZERO)){
             System.out.println("How much money do you have (more than 0)?");
             String amountString = _reader.readLine();
-            if(amountString == null || amountString.isEmpty() || amountString.isBlank()){
+            if(amountString == null || amountString.isEmpty()){
                 System.out.println("This is not valid");
                 continue;
             }
