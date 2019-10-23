@@ -8,34 +8,34 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class OutcomeBuilder {
-    private Outcome _outcome;
+    private Outcome outcome;
 
     public OutcomeBuilder create(){
-        _outcome = new Outcome();
+        outcome = new Outcome();
         return this;
     }
 
     public OutcomeBuilder withDescription(String description){
-        _outcome.setDescription(description);
+        outcome.setDescription(description);
         return this;
     }
 
     public OutcomeBuilder withBet(Bet bet){
-        _outcome.setBet(bet);
+        outcome.setBet(bet);
         return this;
     }
 
     public OutcomeBuilder continueBuilding(Outcome o){
-        _outcome = o;
+        outcome = o;
         return this;
     }
 
     public OutcomeBuilder withOutComeOdd(OutcomeOdd outcomeOdd){
-        if(_outcome.getOutcomeOdds() == null ||
-                !outcomeOverlaps(_outcome.getOutcomeOdds(), outcomeOdd)){
+        if(outcome.getOutcomeOdds() == null ||
+                !outcomeOverlaps(outcome.getOutcomeOdds(), outcomeOdd)){
             List<OutcomeOdd> temp = new ArrayList<>();
             temp.add(outcomeOdd);
-            _outcome.setOutcomeOdds(temp);
+            outcome.setOutcomeOdds(temp);
             return this;
         }
         throw new IllegalArgumentException("The odd overlaps with an existing outcome odd");
@@ -44,7 +44,7 @@ public class OutcomeBuilder {
 
 
     public Outcome build(){
-        return _outcome;
+        return outcome;
     }
 
     private boolean outcomeOverlaps(List<OutcomeOdd> odds, OutcomeOdd odd){

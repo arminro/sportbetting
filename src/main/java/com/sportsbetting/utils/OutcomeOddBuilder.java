@@ -7,39 +7,39 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 public class OutcomeOddBuilder {
-    private OutcomeOdd _odd;
+    private OutcomeOdd odd;
 
     public OutcomeOddBuilder create(){
-        _odd = new OutcomeOdd();
+        odd = new OutcomeOdd();
         return this;
     }
 
     public OutcomeOddBuilder continueBuilding(OutcomeOdd o){
-        _odd = o;
+        odd = o;
         return this;
     }
 
     public OutcomeOddBuilder withValue(BigDecimal value){
-        _odd.setValue(value);
+        odd.setValue(value);
         return this;
     }
 
     public OutcomeOddBuilder withValidFrom(LocalDateTime validFrom){
-        _odd.setValidFrom(validFrom);
+        odd.setValidFrom(validFrom);
         return this;
     }
 
     public OutcomeOddBuilder withValidUntil(LocalDateTime validUntil){
-        _odd.setValidUntil(validUntil);
+        odd.setValidUntil(validUntil);
         return this;
     }
 
     public OutcomeOddBuilder withOutcome(Outcome outcome){
-        _odd.setOutcome(outcome);
+        odd.setOutcome(outcome);
         return this;
     }
 
     public OutcomeOdd build(){
-        return _odd;
+        return odd;
     }
 }

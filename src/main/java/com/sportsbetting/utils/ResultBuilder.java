@@ -8,25 +8,25 @@ import java.util.List;
 
 public class ResultBuilder {
 
-    private Result _result;
+    private Result result;
     public ResultBuilder create(){
-        _result = new Result();
+        result = new Result();
         return this;
     }
 
     public ResultBuilder withOutcome(Outcome outcome){
         List<Outcome> temp = new ArrayList<>();
         temp.add(outcome);
-        _result.setwinnerOutcomes(temp);
+        result.setwinnerOutcomes(temp);
         return this;
     }
 
     public ResultBuilder continueBuilding(Result r){
-        _result = r;
+        result = r;
         return this;
     }
 
     public Result build(){
-        return _result;
+        return result;
     }
 }

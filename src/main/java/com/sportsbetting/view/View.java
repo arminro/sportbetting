@@ -14,9 +14,11 @@ public interface View {
     void printWelcomeMessage();
     void printBalance();
     void printOutcomeOdds(List<SportEvent> events);
-    OutcomeOdd selecOutcomeOdd(List<SportEvent> events) throws IOException;
+    OutcomeOdd selectOutcomeOdd(List<SportEvent> events) throws IOException;
     BigDecimal readWagerAmount() throws IOException;
     void printWagerSaved(Wager w);
     void printNotEnoughBalance(Player p);
     void printResults(Player p, List<Wager> w);
+    void printFinalBalance(Player p);
+    Boolean promptPlayerForAnotherBet() throws IOException;
 }

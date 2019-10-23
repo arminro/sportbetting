@@ -3,29 +3,29 @@ package com.sportsbetting.utils;
 import com.sportsbetting.domain.User;
 
 public class UserBuilder {
-    protected User _user;
+    protected User user;
 
     public UserBuilder create(){
-        _user = new User();
+        user = new User();
         return this;
     }
 
     public UserBuilder continueBuilding(User u){
-        _user = u;
+        user = u;
         return this;
     }
 
     public UserBuilder withEmail(String email){
-        _user.setEmail(email);
+        user.setEmail(email);
         return this;
     }
 
     public UserBuilder withPassword(String pw){
-        _user.setPassword(pw);
+        user.setPassword(pw);
         return this;
     }
 
     public User build(){
-        return _user;
+        return user;
     }
 }

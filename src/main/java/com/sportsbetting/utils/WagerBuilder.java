@@ -1,58 +1,62 @@
 package com.sportsbetting.utils;
-import com.sportsbetting.domain.*;
+
+import com.sportsbetting.domain.Currency;
+import com.sportsbetting.domain.OutcomeOdd;
+import com.sportsbetting.domain.Player;
+import com.sportsbetting.domain.Wager;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 public class WagerBuilder {
-    private Wager _wager;
+    private Wager wager;
 
     public WagerBuilder create(){
-        _wager = new Wager();
+        wager = new Wager();
         return this;
     }
 
     public WagerBuilder continueBuilding(Wager w){
-        _wager = w;
+        wager = w;
         return this;
     }
 
     public WagerBuilder withAmount(BigDecimal amount){
-        _wager.setAmount(amount);
+        wager.setAmount(amount);
         return this;
     }
 
     public WagerBuilder withTimeStampCreated(LocalDateTime timeStampCreated){
-        _wager.setTimeStampCreated(timeStampCreated);
+        wager.setTimeStampCreated(timeStampCreated);
         return this;
     }
 
     public WagerBuilder withProcessed(boolean processed){
-        _wager.setProcessed(processed);
+        wager.setProcessed(processed);
         return this;
     }
 
     public WagerBuilder withWin(boolean win){
-        _wager.setWin(win);
+        wager.setWin(win);
         return this;
     }
 
     public WagerBuilder withPlayer(Player p){
-        _wager.setPlayer(p);
+        wager.setPlayer(p);
         return this;
     }
 
     public WagerBuilder witCurrency(Currency c){
-        _wager.setCurrency(c);
+        wager.setCurrency(c);
         return this;
     }
 
     public WagerBuilder withOdd(OutcomeOdd odd){
-        _wager.setOdd(odd);
+        wager.setOdd(odd);
         return this;
     }
 
     public Wager build(){
-        return _wager;
+        return wager;
     }
 }
