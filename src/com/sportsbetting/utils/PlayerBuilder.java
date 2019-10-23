@@ -2,7 +2,6 @@ package com.sportsbetting.utils;
 
 import com.sportsbetting.domain.Currency;
 import com.sportsbetting.domain.Player;
-import com.sportsbetting.domain.User;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;

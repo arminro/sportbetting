@@ -1,18 +1,18 @@
 package com.sportsbetting;
 
-import com.sportsbetting.domain.Currency;
 import com.sportsbetting.domain.OutcomeOdd;
 import com.sportsbetting.domain.Player;
 import com.sportsbetting.domain.Wager;
 import com.sportsbetting.service.SportBettingService;
+import com.sportsbetting.service.SportBettingServiceImpl;
 import com.sportsbetting.utils.TestdataBuilder;
 import com.sportsbetting.view.View;
+import com.sportsbetting.view.ViewImpl;
 
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.Month;
 
 public class App {
     private SportBettingService _service;
@@ -24,6 +24,12 @@ public class App {
         _service = s;
         _viewService = v;
         _builder = new TestdataBuilder();
+    }
+
+    public static void main(String[] args) {
+
+        App app = new App(new SportBettingServiceImpl(), new ViewImpl());
+        app.play();
     }
 
     public void play(){
@@ -50,10 +56,9 @@ public class App {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-
-
     }
+
+
 
     private void doBetting(){
         _viewService.printOutcomeOdds(_service.findAllSportEvents());

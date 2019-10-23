@@ -12,7 +12,6 @@
         <maven.compiler.source>10</maven.compiler.source>
         <maven.compiler.target>${maven.compiler.source}</maven.compiler.target>
     </properties>
-
     <build>
         <plugins>
             <plugin>
@@ -24,7 +23,7 @@
                     </descriptorRefs>
                     <archive>
                         <manifest>
-                            <mainClass>com.example.sportsbetting.App</mainClass>
+                            <mainClass>com.sportsbetting.App</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
@@ -49,13 +48,11 @@
                     <archive>
                         <manifest>
                             <!-- Jar file entry point -->
-                            <mainClass>com.sportbetting.App</mainClass>
+                            <mainClass>com.sportsbetting.App</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
             </plugin>
         </plugins>
     </build>
-
-    
 </project>

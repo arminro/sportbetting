@@ -1,9 +1,5 @@
 package com.sportsbetting.utils;
 
-import com.sportsbetting.domain.OutcomeOdd;
-import com.sportsbetting.domain.Player;
-import com.sportsbetting.domain.Result;
-
 public class TestdataBuilder {
 
     public BetBuilder bet(){
