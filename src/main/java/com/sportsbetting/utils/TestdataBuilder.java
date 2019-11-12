@@ -1,6 +1,8 @@
 package com.sportsbetting.utils;
 
 import com.sportsbetting.domain.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -11,6 +13,7 @@ import java.util.Random;
 
 public class TestdataBuilder {
 
+    private static final Logger logger = LoggerFactory.getLogger(TestdataBuilder.class);
     public TestdataBuilder() {
         initData();
     }
@@ -82,7 +85,7 @@ public class TestdataBuilder {
 
     private void initData(){
 
-
+        logger.debug("Test data init START");
         // instatiating basic objects
         SportEvent e = sportEvent().create()
                 .withTitle("Overwatch League Tournament")
@@ -179,7 +182,7 @@ public class TestdataBuilder {
         odds.add(oddNyWins);
         odds.add(oddParisDominates);
 
-
+        logger.debug("Test data init ENDED");
     }
 
     public List<OutcomeOdd> getOdds() {

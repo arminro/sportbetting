@@ -8,35 +8,35 @@ import com.sportsbetting.service.SportBettingServiceImpl;
 import com.sportsbetting.utils.TestdataBuilder;
 import com.sportsbetting.view.View;
 import com.sportsbetting.view.ViewImpl;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
+
 public class App {
+
     private SportBettingService service;
+
+
     private View viewService;
     private Player player;
     private TestdataBuilder builder;
 
-    public App(SportBettingService s, View v) {
+    private static final Logger logger = LoggerFactory.getLogger(TestdataBuilder.class);
+
+    public App(SportBettingService s,  View v, TestdataBuilder testdataBuilder) {
         service = s;
         viewService = v;
-        builder = new TestdataBuilder();
+        builder = testdataBuilder;
     }
 
-    public static void main(String[] args) {
 
-        try{
-            App app = new App(new SportBettingServiceImpl(), new ViewImpl());
-            app.play();
-        }
-        catch (IOException ex){
-            System.out.println("Could not read a valid value from the console");
-        }
-
-    }
 
     public void play() throws IOException {
 
@@ -93,7 +93,7 @@ private Boolean promptPlayerForAnotherBet() throws IOException {
             viewService.printWagerSaved(newWager);
 
         } catch (IOException e) {
-            e.printStackTrace();
+            logger.error(e.toString());
         }
     }
 

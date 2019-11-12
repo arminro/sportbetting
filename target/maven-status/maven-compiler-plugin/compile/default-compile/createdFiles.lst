@@ -3,6 +3,7 @@ com\sportsbetting\service\SportBettingServiceImpl.class
 com\sportsbetting\domain\Currency.class
 com\sportsbetting\domain\FootballSportEvent.class
 com\sportsbetting\utils\OutcomeOddBuilder.class
+com\sportsbetting\com\example\sportsbetting\config\TextManager.class
 com\sportsbetting\domain\Outcome.class
 com\sportsbetting\domain\Wager.class
 com\sportsbetting\utils\WagerBuilder.class
@@ -12,6 +13,7 @@ com\sportsbetting\domain\Bet.class
 com\sportsbetting\utils\BetBuilder.class
 com\sportsbetting\domain\SportEvent.class
 com\sportsbetting\utils\TestdataBuilder.class
+com\sportsbetting\com\example\sportsbetting\config\AppConfig.class
 com\sportsbetting\domain\User.class
 com\sportsbetting\view\View.class
 com\sportsbetting\view\ViewImpl.class
@@ -23,4 +25,5 @@ com\sportsbetting\service\SportBettingService.class
 com\sportsbetting\domain\BetType.class
 com\sportsbetting\domain\OutcomeOdd.class
 com\sportsbetting\utils\PlayerBuilder.class
+com\sportsbetting\AppSpring.class
 com\sportsbetting\utils\ResultBuilder.class

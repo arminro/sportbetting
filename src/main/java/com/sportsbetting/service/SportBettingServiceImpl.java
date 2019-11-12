@@ -2,6 +2,9 @@ package com.sportsbetting.service;
 
 import com.sportsbetting.domain.*;
 import com.sportsbetting.utils.TestdataBuilder;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.context.annotation.Bean;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -10,10 +13,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+
 public class SportBettingServiceImpl implements SportBettingService {
 
     private Random rand = new Random();
     private TestdataBuilder builder = new TestdataBuilder();
+    private static final Logger logger = LoggerFactory.getLogger(TestdataBuilder.class);
 
     @Override
     public void savePlayer(Player p) {
@@ -32,11 +37,13 @@ public class SportBettingServiceImpl implements SportBettingService {
 
     @Override
     public void saveWager(Wager w) {
+        logger.debug("Saving wager...");
         w.setWin(rand.nextBoolean());
         builder.addToWagers(w);
         Player p = w.getPlayer();
         BigDecimal newBalance =  p.getBalance().subtract(w.getAmount());
         p.setBalance(newBalance);
+        logger.debug("Wager saved!");
     }
 
     @Override
@@ -46,6 +53,7 @@ public class SportBettingServiceImpl implements SportBettingService {
 
     @Override
     public void calculateResults() {
+        logger.debug("Calculating results...");
         // finding all the winner wagers and the corresponding players
 
        Player p = findPlayer();
@@ -62,6 +70,7 @@ public class SportBettingServiceImpl implements SportBettingService {
                 w.setProcessed(true);
             }
         }
+        logger.debug("Calculation of results finished!");
     }
 
 
