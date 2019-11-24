@@ -1,9 +1,9 @@
 package com.sportsbetting.view;
 
-import com.sportsbetting.domain.OutcomeOdd;
-import com.sportsbetting.domain.Player;
-import com.sportsbetting.domain.SportEvent;
-import com.sportsbetting.domain.Wager;
+import com.sportsbetting.domain.entities.OutcomeOdd;
+import com.sportsbetting.domain.entities.Player;
+import com.sportsbetting.domain.entities.SportEvent;
+import com.sportsbetting.domain.entities.Wager;
 
 import java.io.IOException;
 import java.math.BigDecimal;

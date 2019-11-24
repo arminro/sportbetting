@@ -1,7 +1,7 @@
 package com.sportsbetting.utils;
 
-import com.sportsbetting.domain.Currency;
-import com.sportsbetting.domain.Player;
+import com.sportsbetting.domain.entities.Currency;
+import com.sportsbetting.domain.entities.Player;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;

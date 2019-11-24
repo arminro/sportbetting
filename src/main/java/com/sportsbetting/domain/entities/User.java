@@ -1,6 +1,12 @@
-package com.sportsbetting.domain;
+package com.sportsbetting.domain.entities;
 
-public class User {
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+@Entity
+public class User{
     protected String email;
     protected String password;
 
@@ -18,5 +24,13 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private long id;
+
+    public long getId() {
+        return id;
     }
 }

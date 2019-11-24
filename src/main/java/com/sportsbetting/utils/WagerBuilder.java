@@ -1,9 +1,9 @@
 package com.sportsbetting.utils;
 
-import com.sportsbetting.domain.Currency;
-import com.sportsbetting.domain.OutcomeOdd;
-import com.sportsbetting.domain.Player;
-import com.sportsbetting.domain.Wager;
+import com.sportsbetting.domain.entities.Currency;
+import com.sportsbetting.domain.entities.OutcomeOdd;
+import com.sportsbetting.domain.entities.Player;
+import com.sportsbetting.domain.entities.Wager;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -42,7 +42,7 @@ public class WagerBuilder {
     }
 
     public WagerBuilder withPlayer(Player p){
-        wager.setPlayer(p);
+        wager.setPlayer(p.getId());
         return this;
     }
 
@@ -52,7 +52,7 @@ public class WagerBuilder {
     }
 
     public WagerBuilder withOdd(OutcomeOdd odd){
-        wager.setOdd(odd);
+        wager.setOdd(odd.getId());
         return this;
     }
 

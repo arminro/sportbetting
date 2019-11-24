@@ -1,23 +1,40 @@
-package com.sportsbetting.domain;
+package com.sportsbetting.domain.entities;
 
+import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
+@Entity
+@Table
 public class Wager {
-    private BigDecimal amount;
-    private LocalDateTime timeStampCreated;
-    private boolean processed;
-    private boolean win;
-    private Player player;
-    private Currency currency;
-    private OutcomeOdd odd;
 
-    public OutcomeOdd getOdd() {
-        return odd;
+    @Id
+    @GeneratedValue
+    private long id;
+
+    public long getId() {
+        return id;
+    }
+    private BigDecimal amount;
+
+    private LocalDateTime timeStampCreated;
+
+    private boolean processed;
+
+    private boolean win;
+
+    private long playerId;
+
+    private Currency currency;
+
+    private long outcomeOddId;
+
+    public long getOddId() {
+        return outcomeOddId;
     }
 
-    public void setOdd(OutcomeOdd odd) {
-        this.odd = odd;
+    public void setOdd(long oddId) {
+        this.outcomeOddId = oddId;
     }
 
     public Currency getCurrency() {
@@ -28,12 +45,12 @@ public class Wager {
         this.currency = currency;
     }
 
-    public Player getPlayer() {
-        return player;
+    public long getPlayerId() {
+        return playerId;
     }
 
-    public void setPlayer(Player player) {
-        this.player = player;
+    public void setPlayer(long playerId) {
+        this.playerId = playerId;
     }
 
     public BigDecimal getAmount() {

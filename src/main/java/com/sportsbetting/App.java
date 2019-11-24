@@ -1,17 +1,13 @@
 package com.sportsbetting;
 
-import com.sportsbetting.domain.OutcomeOdd;
-import com.sportsbetting.domain.Player;
-import com.sportsbetting.domain.Wager;
+import com.sportsbetting.domain.entities.OutcomeOdd;
+import com.sportsbetting.domain.entities.Player;
+import com.sportsbetting.domain.entities.Wager;
 import com.sportsbetting.service.SportBettingService;
-import com.sportsbetting.service.SportBettingServiceImpl;
 import com.sportsbetting.utils.TestdataBuilder;
 import com.sportsbetting.view.View;
-import com.sportsbetting.view.ViewImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 
 import java.io.IOException;
 import java.math.BigDecimal;
@@ -34,6 +30,7 @@ public class App {
         service = s;
         viewService = v;
         builder = testdataBuilder;
+        builder.initData();
     }
 
 
@@ -60,7 +57,6 @@ public class App {
             Player p = viewService.readPlayerData();
 
             // adding extra info to the existing object
-
             p = builder.player().continueBuilding(p)
                     .withBirth(LocalDate.of(2000, 10, 10))
                     .withAccountNumber(p.hashCode())
@@ -81,7 +77,7 @@ private Boolean promptPlayerForAnotherBet() throws IOException {
             Player p = service.findPlayer();
             selectedOdd = viewService.selectOutcomeOdd(null);
             BigDecimal wagerAmount = viewService.readWagerAmount();
-            Wager newWager = builder.wager().create()
+                 Wager newWager = builder.wager().create()
                     .witCurrency(p.getCurrency())
                     .withAmount(wagerAmount)
                     .withOdd(selectedOdd)

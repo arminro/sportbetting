@@ -1,22 +1,39 @@
 package com.sportsbetting.utils;
 
-import com.sportsbetting.domain.*;
+import com.sportsbetting.domain.data_access.*;
+import com.sportsbetting.domain.entities.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.time.Month;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
+
+@Component
 public class TestdataBuilder {
 
     private static final Logger logger = LoggerFactory.getLogger(TestdataBuilder.class);
+
     public TestdataBuilder() {
-        initData();
+        //initData();
     }
+
+    @Autowired
+    WagerRepository wagerRepo;
+
+    @Autowired
+    EventRepository eventRepo;
+
+    @Autowired
+    OddRepository oddRepo;
+
+    @Autowired
+    PlayerRepository playerRepo;
+
 
     public BetBuilder bet(){
         return new BetBuilder();
@@ -50,40 +67,69 @@ public class TestdataBuilder {
         return new WagerBuilder();
     }
 
-    private List<Player> players = new ArrayList<>();
-
-    private List<SportEvent> events = new ArrayList<>();
-    private List<Wager> wagers = new ArrayList<>();
-    private List<OutcomeOdd> odds = new ArrayList<>();
-
     public List<Player> getPlayers(){
+        Iterable<Player> result = playerRepo.findAll();
+
+        // since we already published an API with List<Player>, we prefer to keep the return value even if Iterable is returned
+        List<Player> players = new ArrayList<>();
+
+        // based on: https://stackoverflow.com/questions/6416706/easy-way-to-convert-iterable-to-collection
+        // adding each element 1 by 1 might cause out of memo exception, todo: pagination
+        result.forEach(players::add);
         return players;
     }
 
+    public Player getPlayer() {
+        // for the time being, this is going to return the first player
+        Player current = null;
+        for (Player p:playerRepo.findAll()  ) {
+            current = p;
+            break;
+        }
+        return current;
+    }
+
     public void addToPlayers(Player p){
-        players.add(p);
+        playerRepo.save(p);
     }
 
     public List<Wager> getWagers(){
+        Iterable<Wager> result = wagerRepo.findAll();
+        List<Wager> wagers = new ArrayList<>();
+        result.forEach(wagers::add);
         return wagers;
     }
 
-    public void addToWagers(Wager w){
-        wagers.add(w);
+    public OutcomeOdd getOddById(long id){
+        return oddRepo.findById(id).get();
     }
 
-
+    public void addToWagers(Wager w){
+        wagerRepo.save(w);
+    }
 
     public List<SportEvent> getEvents(){
+        Iterable<SportEvent> result = eventRepo.findAll();
+
+        List<SportEvent> events = new ArrayList<>();
+        result.forEach(events::add);
         return events;
     }
 
-    public List<OutcomeOdd> getOutcomes(){
+    public List<OutcomeOdd> getOdds(){
+        Iterable<OutcomeOdd> result = oddRepo.findAll();
+
+        List<OutcomeOdd> odds = new ArrayList<>();
+        result.forEach(odds::add);
         return odds;
     }
 
+    public Player getPlayerById(long id){
+        return playerRepo.findById(id).get();
+    }
 
-    private void initData(){
+
+    public void initData(){
 
         logger.debug("Test data init START");
         // instatiating basic objects
@@ -177,15 +223,14 @@ public class TestdataBuilder {
                 .withBet(betFriscoWinsItAll)
                 .build();
         // storing elements for later use
-        events.add(e);
-        odds.add(oddFriscoWinsItAll);
-        odds.add(oddNyWins);
-        odds.add(oddParisDominates);
+        eventRepo.save(e);
+        oddRepo.save(oddFriscoWinsItAll);
+        oddRepo.save(oddNyWins);
+        oddRepo.save(oddParisDominates);
 
         logger.debug("Test data init ENDED");
     }
 
-    public List<OutcomeOdd> getOdds() {
-        return odds;
-    }
+
+
 }

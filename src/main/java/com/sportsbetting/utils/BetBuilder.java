@@ -1,14 +1,14 @@
 package com.sportsbetting.utils;
 
-import com.sportsbetting.domain.Bet;
-import com.sportsbetting.domain.BetType;
-import com.sportsbetting.domain.Outcome;
-import com.sportsbetting.domain.SportEvent;
+import com.sportsbetting.domain.entities.Bet;
+import com.sportsbetting.domain.entities.BetType;
+import com.sportsbetting.domain.entities.Outcome;
+import com.sportsbetting.domain.entities.SportEvent;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class BetBuilder {
+ public class BetBuilder {
 
     private Bet _bet;
 

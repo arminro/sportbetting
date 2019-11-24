@@ -1,11 +1,22 @@
-package com.sportsbetting.domain;
+package com.sportsbetting.domain.entities;
 
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+
+import javax.persistence.*;
 import java.util.List;
 
+@Entity
 public class Outcome {
 
     private String description;
+
+    @ManyToOne(cascade=CascadeType.ALL)
+    @JoinColumn(name = "bet_id", nullable = false)
     private Bet bet;
+
+    @OneToMany(cascade=CascadeType.ALL)
+    @LazyCollection(LazyCollectionOption.FALSE)
     private List<OutcomeOdd> outcomeOdds;
 
     public List<OutcomeOdd> getOutcomeOdds() {
@@ -36,5 +47,13 @@ public class Outcome {
 
     public void setBet(Bet bet) {
         this.bet = bet;
+    }
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private long id;
+
+    public long getId() {
+        return id;
     }
 }

@@ -1,10 +1,11 @@
 package com.sportsbetting.view;
 
 import com.sportsbetting.com.example.sportsbetting.config.TextManager;
-import com.sportsbetting.domain.*;
+import com.sportsbetting.domain.entities.*;
 import com.sportsbetting.utils.TestdataBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Service;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -12,19 +13,20 @@ import java.io.InputStreamReader;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.ResourceBundle;
 
+@Service
 public class ViewImpl implements View {
 
     BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-    TestdataBuilder builder = new TestdataBuilder();
+    TestdataBuilder builder;
     Player newPlayer; // the view can store separate variable as part of their view model
     List<OutcomeOdd> odds  = new ArrayList<>();
     private TextManager manager;
-    private static final Logger logger = LoggerFactory.getLogger(TestdataBuilder.class);
+    private static final Logger logger = LoggerFactory.getLogger(ViewImpl.class);
 
-    public ViewImpl(TextManager manager) {
+    public ViewImpl(TextManager manager, TestdataBuilder builder) {
         this.manager = manager;
+        this.builder = builder;
     }
 
     @Override
@@ -161,8 +163,9 @@ public class ViewImpl implements View {
 
     @Override
     public void printWagerSaved(Wager w) {
+        OutcomeOdd odd = builder.getOddById(w.getOddId());
         System.out.println(manager.getText("wager.confirmation") + ":"  + "\n" + manager.getText("gameplay.odd") +":"
-                + w.getOdd().getValue() + " " + w.getAmount() +" "+ manager.getText("gameplay.created") + " "
+                + odd.getValue() + " " + w.getAmount() +" "+ manager.getText("gameplay.created") + " "
                 + w.getTimeStampCreated());
     }
 
@@ -176,9 +179,9 @@ public class ViewImpl implements View {
     public void printResults(Player p, List<Wager> w) {
         System.out.println(manager.getText("gameplay.results")+":");
         for (Wager wager:w) {
-
+            OutcomeOdd odd = builder.getOddById(wager.getOddId());
             System.out.println(manager.getText("gameplay.wager")+ "[" + manager.getText("gameplay.odd") +": "
-                    + wager.getOdd().getValue() + ", "+ manager.getText("gameplay.amount") + ": "+ wager.getAmount() + " "
+                    + odd.getValue() + ", "+ manager.getText("gameplay.amount") + ": "+ wager.getAmount() + " "
                     + wager.getCurrency() + "} " +
                     (wager.isWin() ? manager.getText("gameplay.won") : manager.getText("gameplay.lost")));
         }

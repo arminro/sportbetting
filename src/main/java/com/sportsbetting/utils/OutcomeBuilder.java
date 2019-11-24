@@ -1,8 +1,8 @@
 package com.sportsbetting.utils;
 
-import com.sportsbetting.domain.Bet;
-import com.sportsbetting.domain.Outcome;
-import com.sportsbetting.domain.OutcomeOdd;
+import com.sportsbetting.domain.entities.Bet;
+import com.sportsbetting.domain.entities.Outcome;
+import com.sportsbetting.domain.entities.OutcomeOdd;
 
 import java.util.ArrayList;
 import java.util.List;

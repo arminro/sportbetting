@@ -1,13 +1,32 @@
-package com.sportsbetting.domain;
+package com.sportsbetting.domain.entities;
 
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+
+import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.List;
 
+@Entity
 public class SportEvent {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private long id;
+
+    public long getId() {
+        return id;
+    }
+
     protected String title;
     protected LocalDateTime startDate;
     protected LocalDateTime endDate;
+
+    @OneToOne(cascade=CascadeType.ALL)
     protected Result result;
+
+    @OneToMany(cascade=CascadeType.ALL)
+    @LazyCollection(LazyCollectionOption.FALSE)
     protected List<Bet> bets;
 
     public List<Bet> getBets() {

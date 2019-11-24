@@ -1,7 +1,7 @@
 package com.sportsbetting.utils;
 
-import com.sportsbetting.domain.Outcome;
-import com.sportsbetting.domain.OutcomeOdd;
+import com.sportsbetting.domain.entities.Outcome;
+import com.sportsbetting.domain.entities.OutcomeOdd;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;

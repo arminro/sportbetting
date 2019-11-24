@@ -1,8 +1,10 @@
-package com.sportsbetting.domain;
+package com.sportsbetting.domain.entities;
 
+import javax.persistence.Entity;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
+@Entity
 public class Player extends User {
     private String name;
     private Integer accountNumber;

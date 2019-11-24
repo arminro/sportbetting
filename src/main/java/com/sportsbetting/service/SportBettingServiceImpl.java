@@ -1,33 +1,37 @@
 package com.sportsbetting.service;
 
-import com.sportsbetting.domain.*;
+import com.sportsbetting.domain.entities.OutcomeOdd;
+import com.sportsbetting.domain.entities.Player;
+import com.sportsbetting.domain.entities.SportEvent;
+import com.sportsbetting.domain.entities.Wager;
 import com.sportsbetting.utils.TestdataBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.context.annotation.Bean;
+import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
-import java.time.Month;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-
+@Service
 public class SportBettingServiceImpl implements SportBettingService {
 
     private Random rand = new Random();
-    private TestdataBuilder builder = new TestdataBuilder();
+    private TestdataBuilder builder;
     private static final Logger logger = LoggerFactory.getLogger(TestdataBuilder.class);
+
+    public SportBettingServiceImpl(TestdataBuilder builder) {
+        this.builder = builder;
+    }
 
     @Override
     public void savePlayer(Player p) {
-        builder.getPlayers().add(p);
+        builder.addToPlayers(p);
     }
 
     @Override
     public Player findPlayer() {
-        return builder.getPlayers().get(rand.nextInt(builder.getPlayers().size()));
+        return builder.getPlayer();
     }
 
     @Override
@@ -39,8 +43,8 @@ public class SportBettingServiceImpl implements SportBettingService {
     public void saveWager(Wager w) {
         logger.debug("Saving wager...");
         w.setWin(rand.nextBoolean());
+        Player p = builder.getPlayerById(w.getPlayerId());
         builder.addToWagers(w);
-        Player p = w.getPlayer();
         BigDecimal newBalance =  p.getBalance().subtract(w.getAmount());
         p.setBalance(newBalance);
         logger.debug("Wager saved!");
@@ -56,19 +60,25 @@ public class SportBettingServiceImpl implements SportBettingService {
         logger.debug("Calculating results...");
         // finding all the winner wagers and the corresponding players
 
-       Player p = findPlayer();
+       //Player p = findPlayer();
         for (Wager w: findAllWagers()) {
+            Player p = builder.getPlayerById(w.getPlayerId());
+            OutcomeOdd odd = builder.getOddById(w.getOddId());
+            // rules: win = bet amount * outcomecome odd, e.g, for a bet of 100 with 1.6 odds the profit is 60 (+100 back)
+            BigDecimal newBalance = null;
             if(w.isWin()){
-                Player winner = w.getPlayer();
-
-                // rules: win = bet amount * outcomecome odd, e.g, for a bet of 100 with 1.6 odds the profit is 60 (+100 back)
-                BigDecimal addition = w.getAmount().multiply(w.getOdd().getValue());
-                BigDecimal newBalance = winner.getBalance().add(addition);
-
-                // paying money to the player
-                winner.setBalance(newBalance);
-                w.setProcessed(true);
+                BigDecimal addition = w.getAmount().multiply(odd.getValue());
+                newBalance = p.getBalance().add(addition);
             }
+            else{
+                newBalance = newBalance.subtract(w.getAmount());
+            }
+
+            p.setBalance(newBalance);
+            w.setProcessed(true);
+            // updating the wager and the player
+            builder.addToWagers(w);
+            builder.addToPlayers(p);
         }
         logger.debug("Calculation of results finished!");
     }

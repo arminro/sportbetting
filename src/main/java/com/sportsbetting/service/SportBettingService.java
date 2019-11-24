@@ -1,8 +1,8 @@
 package com.sportsbetting.service;
 
-import com.sportsbetting.domain.Player;
-import com.sportsbetting.domain.SportEvent;
-import com.sportsbetting.domain.Wager;
+import com.sportsbetting.domain.entities.Player;
+import com.sportsbetting.domain.entities.SportEvent;
+import com.sportsbetting.domain.entities.Wager;
 
 import java.util.List;
 

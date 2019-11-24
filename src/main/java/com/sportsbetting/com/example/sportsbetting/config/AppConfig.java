@@ -1,59 +1,50 @@
 package com.sportsbetting.com.example.sportsbetting.config;
 
 import com.sportsbetting.App;
+import com.sportsbetting.domain.data_access.*;
 import com.sportsbetting.service.SportBettingService;
 import com.sportsbetting.service.SportBettingServiceImpl;
 import com.sportsbetting.utils.TestdataBuilder;
 import com.sportsbetting.view.View;
 import com.sportsbetting.view.ViewImpl;
-import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.MessageSource;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.PropertySource;
+import org.springframework.context.annotation.*;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 import org.springframework.context.support.ResourceBundleMessageSource;
-import org.springframework.web.servlet.LocaleResolver;
-import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
-import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 
-import java.util.Locale;
+;
 
 @Configuration
 @PropertySource(value = {"classpath:config.properties"}, encoding = "UTF-8")
+@ComponentScan(basePackages={"com.sportsbetting.utils"})
+@EntityScan(basePackages={"com.sportsbetting.domain.entities"})
 public class AppConfig {
+     // based on: http://www.denofprogramming.com/spring-tutorial-starting-with-spring-javaconfig/
 
+    @Bean
+    public TestdataBuilder builder(){
 
+        TestdataBuilder builder = new TestdataBuilder();
+        //builder.initData(); // Spring DI seems to take effect only after the constructor
+        return builder;
+    }
 
-    private MessageSource messageSource;
-
-    // based on: http://www.denofprogramming.com/spring-tutorial-starting-with-spring-javaconfig/
     @Bean
     public SportBettingService sportsService(){
-        return new SportBettingServiceImpl();
+        return new SportBettingServiceImpl(builder());
     }
 
 
     @Bean
     public View view(){
-        return new ViewImpl(textManager());
+        return new ViewImpl(textManager(), builder());
     }
 
     // resolving ${}
     @Bean
     public static PropertySourcesPlaceholderConfigurer propertyConfigInDev() {
         return new PropertySourcesPlaceholderConfigurer();
-    }
-
-    public TestdataBuilder builder(){
-        return new TestdataBuilder();
-    }
-
-    @Bean
-    public App app(){
-        return new App(sportsService(), view(), builder());
     }
 
     @Bean
@@ -69,4 +60,8 @@ public class AppConfig {
         return new TextManager(messageSource());
     }
 
+    @Bean
+    public App app(){
+        return new App(sportsService(), view(), builder());
+    }
 }

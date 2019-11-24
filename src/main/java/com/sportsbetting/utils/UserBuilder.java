@@ -1,6 +1,6 @@
 package com.sportsbetting.utils;
 
-import com.sportsbetting.domain.User;
+import com.sportsbetting.domain.entities.User;
 
 public class UserBuilder {
     protected User user;
