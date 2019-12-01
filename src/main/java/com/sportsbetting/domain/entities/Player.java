@@ -1,5 +1,7 @@
 package com.sportsbetting.domain.entities;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.Entity;
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -7,9 +9,14 @@ import java.time.LocalDate;
 @Entity
 public class Player extends User {
     private String name;
+
     private Integer accountNumber;
+
     private BigDecimal balance;
+
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     private LocalDate birth;
+
     private Currency currency;
 
     public Currency getCurrency() {

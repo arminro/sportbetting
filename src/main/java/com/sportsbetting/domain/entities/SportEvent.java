@@ -8,6 +8,8 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
+@Inheritance(strategy=InheritanceType.JOINED)
+@DiscriminatorColumn(name="EventType")
 public class SportEvent {
 
     @Id
@@ -16,6 +18,13 @@ public class SportEvent {
 
     public long getId() {
         return id;
+    }
+
+    @Column(name = "eventType", insertable = false, updatable = false)
+    private String eventType;
+
+    public String getEventType() {
+        return eventType;
     }
 
     protected String title;

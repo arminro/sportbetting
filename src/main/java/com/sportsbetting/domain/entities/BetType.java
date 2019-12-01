@@ -2,7 +2,7 @@ package com.sportsbetting.domain.entities;
 
 public enum BetType{
     WINNER("winner"),
-    GOALS("number of math dominations"),
+    GOALS("number of match dominations"),
     PLAYERS_SCORE("player kill"),
     NUMBER_OF_SETS("total number of matches played");
 
